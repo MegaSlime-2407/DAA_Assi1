@@ -7,7 +7,7 @@ public class Main {
             array[i] = (int)(Math.random()*100);
         }
         System.out.println(Arrays.toString(array));
-        MergeSort.mergeSort(array);
+        QuickSort.quickSort(array, 0, array.length-1);
         System.out.println(Arrays.toString(array));
      }
 }

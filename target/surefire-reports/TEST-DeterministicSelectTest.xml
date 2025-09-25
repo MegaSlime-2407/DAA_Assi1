@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="MergeSortTest" time="0.014" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="DeterministicSelectTest" time="0.053" tests="12" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -57,7 +57,16 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="mergeSortAscendingOrder" classname="MergeSortTest" time="0.003"/>
-  <testcase name="handlesNullInput" classname="MergeSortTest" time="0.002"/>
-  <testcase name="handlesSingleElement" classname="MergeSortTest" time="0.001"/>
+  <testcase name="handlesReverseSortedArray" classname="DeterministicSelectTest" time="0.004"/>
+  <testcase name="handlesLargeArray" classname="DeterministicSelectTest" time="0.003"/>
+  <testcase name="findsKthSmallestElement" classname="DeterministicSelectTest" time="0.003"/>
+  <testcase name="originalArrayNotModified" classname="DeterministicSelectTest" time="0.002"/>
+  <testcase name="handlesAlreadySortedArray" classname="DeterministicSelectTest" time="0.001"/>
+  <testcase name="handlesEmptyArray" classname="DeterministicSelectTest" time="0.003"/>
+  <testcase name="handlesDuplicateElements" classname="DeterministicSelectTest" time="0.001"/>
+  <testcase name="nullArrayThrowsException" classname="DeterministicSelectTest" time="0.001"/>
+  <testcase name="handlesTwoElements" classname="DeterministicSelectTest" time="0.0"/>
+  <testcase name="findMedianWorksCorrectly" classname="DeterministicSelectTest" time="0.0"/>
+  <testcase name="invalidKThrowsException" classname="DeterministicSelectTest" time="0.002"/>
+  <testcase name="handlesSingleElement" classname="DeterministicSelectTest" time="0.003"/>
 </testsuite>

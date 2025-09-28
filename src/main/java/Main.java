@@ -21,33 +21,33 @@ public class Main {
         CsvMetricsWriter writer = new CsvMetricsWriter("metrics/out.csv");
         Metrics m = new Metrics();
         
-        // algorithms.QuickSort demo
+        // QuickSort demo
         int[] a1 = {64, 34, 25, 12, 22, 11, 90, 5};
-        System.out.println("algorithms.QuickSort: " + Arrays.toString(a1));
+        System.out.println("QuickSort: " + Arrays.toString(a1));
         QuickSort.quickSort(a1, m);
         System.out.println("Sorted: " + Arrays.toString(a1));
-        writer.append(m, "algorithms.QuickSort", a1.length);
-        System.out.println("algorithms.Metrics: comparisons=" + m.comparisons + ", swaps=" + m.swaps + ", maxDepth=" + m.maxDepth);
+        writer.append(m, "QuickSort", a1.length);
+        System.out.println("Metrics: comparisons=" + m.comparisons + ", swaps=" + m.swaps + ", maxDepth=" + m.maxDepth);
         
-        // algorithms.MergeSort demo
+        // MergeSort demo
         m.reset();
         int[] a2 = {38, 27, 43, 3, 9, 82, 10};
-        System.out.println("\nalgorithms.MergeSort: " + Arrays.toString(a2));
+        System.out.println("\nMergeSort: " + Arrays.toString(a2));
         MergeSort.mergeSort(a2, m);
         System.out.println("Sorted: " + Arrays.toString(a2));
-        writer.append(m, "algorithms.MergeSort", a2.length);
-        System.out.println("algorithms.Metrics: comparisons=" + m.comparisons + ", merges=" + m.merges + ", maxDepth=" + m.maxDepth);
+        writer.append(m, "MergeSort", a2.length);
+        System.out.println("Metrics: comparisons=" + m.comparisons + ", merges=" + m.merges + ", maxDepth=" + m.maxDepth);
         
-        // algorithms.DeterministicSelect demo
+        // DeterministicSelect demo
         m.reset();
         int[] a3 = {7, 10, 4, 3, 20, 15};
-        System.out.println("\nalgorithms.DeterministicSelect: " + Arrays.toString(a3));
+        System.out.println("\nDeterministicSelect: " + Arrays.toString(a3));
         int kth = DeterministicSelect.select(a3, 3, m);
         System.out.println("3rd smallest: " + kth);
         writer.append(m, "DetSelect", a3.length);
-        System.out.println("algorithms.Metrics: comparisons=" + m.comparisons + ", partitions=" + m.partitions + ", maxDepth=" + m.maxDepth);
+        System.out.println("Metrics: comparisons=" + m.comparisons + ", partitions=" + m.partitions + ", maxDepth=" + m.maxDepth);
         
-        // algorithms.ClosestPair demo
+        // ClosestPair demo
         m.reset();
         ClosestPair.Point[] pts = {
             new ClosestPair.Point(2, 3),
@@ -57,14 +57,14 @@ public class Main {
             new ClosestPair.Point(12, 10),
             new ClosestPair.Point(3, 4)
         };
-        System.out.println("\nalgorithms.ClosestPair: 6 points");
+        System.out.println("\nClosestPair: 6 points");
         ClosestPair.Result result = ClosestPair.findClosestPair(pts, m);
         System.out.println("Closest: (" + result.p1.x + "," + result.p1.y + ") to (" + result.p2.x + "," + result.p2.y + ")");
         System.out.println("Distance: " + String.format("%.3f", result.distance));
-        writer.append(m, "algorithms.ClosestPair", pts.length);
-        System.out.println("algorithms.Metrics: comparisons=" + m.comparisons + ", stripChecks=" + m.stripChecks + ", maxDepth=" + m.maxDepth);
+        writer.append(m, "ClosestPair", pts.length);
+        System.out.println("Metrics: comparisons=" + m.comparisons + ", stripChecks=" + m.stripChecks + ", maxDepth=" + m.maxDepth);
         
-        System.out.println("\nalgorithms.Metrics saved to metrics/out.csv");
+        System.out.println("\nMetrics saved to metrics/out.csv");
     }
     
     private static void runWithArgs(String[] args) throws Exception {
@@ -104,7 +104,7 @@ public class Main {
     
     private static void runQuickSort(int size, Metrics m, CsvMetricsWriter writer) throws Exception {
         int[] arr = generateArray(size);
-        System.out.println("algorithms.QuickSort on " + size + " elements");
+        System.out.println("QuickSort on " + size + " elements");
         QuickSort.quickSort(arr, m);
         System.out.println("Comparisons: " + m.comparisons + ", Swaps: " + m.swaps + ", MaxDepth: " + m.maxDepth);
         writer.append(m, "QuickSort_" + size, size);
@@ -112,7 +112,7 @@ public class Main {
     
     private static void runMergeSort(int size, Metrics m, CsvMetricsWriter writer) throws Exception {
         int[] arr = generateArray(size);
-        System.out.println("algorithms.MergeSort on " + size + " elements");
+        System.out.println("MergeSort on " + size + " elements");
         MergeSort.mergeSort(arr, m);
         System.out.println("Comparisons: " + m.comparisons + ", Merges: " + m.merges + ", MaxDepth: " + m.maxDepth);
         writer.append(m, "MergeSort_" + size, size);
@@ -120,7 +120,7 @@ public class Main {
     
     private static void runSelect(int size, Metrics m, CsvMetricsWriter writer) throws Exception {
         int[] arr = generateArray(size);
-        System.out.println("algorithms.DeterministicSelect on " + size + " elements");
+        System.out.println("DeterministicSelect on " + size + " elements");
         int median = DeterministicSelect.select(arr, size/2, m);
         System.out.println("Median: " + median + ", Comparisons: " + m.comparisons + ", Partitions: " + m.partitions);
         writer.append(m, "DetSelect_" + size, size);
@@ -128,7 +128,7 @@ public class Main {
     
     private static void runClosestPair(int size, Metrics m, CsvMetricsWriter writer) throws Exception {
         ClosestPair.Point[] pts = generatePoints(size);
-        System.out.println("algorithms.ClosestPair on " + size + " points");
+        System.out.println("ClosestPair on " + size + " points");
         ClosestPair.Result result = ClosestPair.findClosestPair(pts, m);
         System.out.println("Distance: " + String.format("%.3f", result.distance) + ", Comparisons: " + m.comparisons);
         writer.append(m, "ClosestPair_" + size, size);
@@ -160,4 +160,3 @@ public class Main {
         return pts;
     }
 }
-

@@ -1,3 +1,7 @@
+package utils;
+
+import algorithms.Metrics;
+
 import java.util.Random;
 
 public class Util {

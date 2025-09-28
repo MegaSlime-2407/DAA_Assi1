@@ -1,3 +1,7 @@
+package utils;
+
+import algorithms.Metrics;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;

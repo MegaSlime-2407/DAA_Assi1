@@ -1,3 +1,5 @@
+package algorithms;
+
 public class QuickSort {
     private static final int CUTOFF = 10;
     

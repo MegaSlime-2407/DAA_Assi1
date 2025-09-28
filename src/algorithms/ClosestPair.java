@@ -1,3 +1,5 @@
+package algorithms;
+
 public class ClosestPair {
     
     public static class Point {

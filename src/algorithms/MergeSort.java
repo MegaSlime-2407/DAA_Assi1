@@ -1,3 +1,5 @@
+package algorithms;
+
 public class MergeSort {
     private static final int CUTOFF = 10;
     private static int[] aux;

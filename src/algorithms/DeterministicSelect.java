@@ -1,3 +1,5 @@
+package algorithms;
+
 public class DeterministicSelect {
 
     public static int select(int[] array, int k) {

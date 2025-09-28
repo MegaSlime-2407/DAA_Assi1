@@ -1,15 +1,36 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
 
 public class DeterministicSelectTest {
+    private static CsvMetricsWriter writer;
+    
+    static {
+        try {
+            writer = new CsvMetricsWriter("metrics/test-results.csv");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     @Test
-    void findsKthSmallestElement() {
+    void findsKthSmallestElement() throws IOException {
         int[] array = {5, 3, 8, 1, 2, 7, 4, 6};
-        assertEquals(1, DeterministicSelect.select(array, 1));
-        assertEquals(2, DeterministicSelect.select(array, 2));
-        assertEquals(3, DeterministicSelect.select(array, 3)); 
-        assertEquals(8, DeterministicSelect.select(array, 8)); 
+        Metrics m = new Metrics();
+        assertEquals(1, DeterministicSelect.select(array, 1, m));
+        writer.append(m, "DetSelect_Test1", array.length);
+        
+        m.reset();
+        assertEquals(2, DeterministicSelect.select(array, 2, m));
+        writer.append(m, "DetSelect_Test2", array.length);
+        
+        m.reset();
+        assertEquals(3, DeterministicSelect.select(array, 3, m));
+        writer.append(m, "DetSelect_Test3", array.length);
+        
+        m.reset();
+        assertEquals(8, DeterministicSelect.select(array, 8, m));
+        writer.append(m, "DetSelect_Test4", array.length);
     }
     
     @Test
@@ -90,18 +111,40 @@ public class DeterministicSelectTest {
     }
     
     @Test
-    void findMedianWorksCorrectly() {
+    void findMedianWorksCorrectly() throws IOException {
         int[] odd = {5, 3, 8, 1, 2, 7, 4}; // 7 elements
+        Metrics m = new Metrics();
         assertEquals(4, DeterministicSelect.findMedian(odd));
+        writer.append(m, "DetSelect_Median_Odd", odd.length);
         
         int[] even = {5, 3, 8, 1, 2, 7}; // 6 elements
+        m.reset();
         assertEquals(3, DeterministicSelect.findMedian(even)); // Lower median
+        writer.append(m, "DetSelect_Median_Even", even.length);
         
         int[] single = {42};
+        m.reset();
         assertEquals(42, DeterministicSelect.findMedian(single));
+        writer.append(m, "DetSelect_Median_Single", single.length);
         
         int[] two = {5, 3};
+        m.reset();
         assertEquals(3, DeterministicSelect.findMedian(two));
+        writer.append(m, "DetSelect_Median_Two", two.length);
+    }
+    
+    @Test
+    void performanceTest() throws IOException {
+        int[] sizes = {10, 50, 100, 500};
+        for (int size : sizes) {
+            int[] arr = new int[size];
+            for (int i = 0; i < size; i++) {
+                arr[i] = (int)(Math.random() * 1000);
+            }
+            Metrics m = new Metrics();
+            DeterministicSelect.select(arr, size/2, m); // Find median
+            writer.append(m, "DetSelect_Perf_" + size, size);
+        }
     }
     
     @Test

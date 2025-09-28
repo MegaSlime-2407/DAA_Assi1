@@ -1,18 +1,30 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
 
 public class ClosestPairTest {
+    private static CsvMetricsWriter writer;
+    
+    static {
+        try {
+            writer = new CsvMetricsWriter("metrics/test-results.csv");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     @Test
-    void findsClosestPairBasic() {
+    void findsClosestPairBasic() throws IOException {
         ClosestPair.Point[] points = {
             new ClosestPair.Point(0, 0),
             new ClosestPair.Point(1, 1),
             new ClosestPair.Point(2, 2),
             new ClosestPair.Point(3, 3)
         };
-        ClosestPair.Result result = ClosestPair.findClosestPair(points);
+        Metrics m = new Metrics();
+        ClosestPair.Result result = ClosestPair.findClosestPair(points, m);
         assertEquals(Math.sqrt(2), result.distance, 1e-9);
+        writer.append(m, "ClosestPair_Basic", points.length);
     }
     
     @Test
@@ -86,13 +98,29 @@ public class ClosestPairTest {
     }
     
     @Test
-    void handlesLargeDataset() {
+    void handlesLargeDataset() throws IOException {
         ClosestPair.Point[] points = new ClosestPair.Point[100];
         for (int i = 0; i < 100; i++) {
             points[i] = new ClosestPair.Point(i, i);
         }
-        ClosestPair.Result result = ClosestPair.findClosestPair(points);
+        Metrics m = new Metrics();
+        ClosestPair.Result result = ClosestPair.findClosestPair(points, m);
         assertEquals(Math.sqrt(2), result.distance, 1e-9);
+        writer.append(m, "ClosestPair_Large", points.length);
+    }
+    
+    @Test
+    void performanceTest() throws IOException {
+        int[] sizes = {10, 20, 50, 100};
+        for (int size : sizes) {
+            ClosestPair.Point[] points = new ClosestPair.Point[size];
+            for (int i = 0; i < size; i++) {
+                points[i] = new ClosestPair.Point(Math.random() * 100, Math.random() * 100);
+            }
+            Metrics m = new Metrics();
+            ClosestPair.findClosestPair(points, m);
+            writer.append(m, "ClosestPair_Perf_" + size, size);
+        }
     }
     
     @Test

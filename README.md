@@ -1,4 +1,4 @@
-# DAA Assignment 1 - Algorithm Analysis Project
+# DAA Assignment 1 - Algorithm Analysis
 
 This project implements and analyzes several fundamental algorithms with performance metrics collection. The goal is to compare different sorting and selection algorithms and understand their behavior in practice.
 
@@ -89,6 +89,58 @@ Runs all unit tests and collects performance metrics. Results are saved to `metr
 - Buffer reuse in algorithms.MergeSort reduces memory allocations
 - Insertion sort cutoff provides measurable speedup for small arrays
 - Smaller-first recursion helps maintain reasonable stack depth
+
+## Quick Algorithm Analysis
+
+### Performance Characteristics
+
+**QuickSort**
+- **Best Case**: O(n log n) - when pivot consistently divides array in half
+- **Average Case**: O(n log n) - with median-of-3 pivot selection
+- **Worst Case**: O(n²) - when pivot is always smallest/largest element
+- **Space**: O(log n) - recursion depth with smaller-first optimization
+- **Stability**: Not stable - equal elements may be reordered
+
+**MergeSort**
+- **All Cases**: O(n log n) - guaranteed performance regardless of input
+- **Space**: O(n) - requires auxiliary array for merging
+- **Stability**: Stable - preserves relative order of equal elements
+- **Consistency**: Predictable performance, good for large datasets
+
+**DeterministicSelect**
+- **All Cases**: O(n) - guaranteed linear time with median-of-medians
+- **Space**: O(log n) - recursion depth
+- **Use Case**: Finding k-th smallest element, median finding
+- **Trade-off**: More complex than quickselect but avoids worst-case O(n²)
+
+**ClosestPair**
+- **All Cases**: O(n log n) - divide-and-conquer with strip optimization
+- **Space**: O(n) - for sorting and strip storage
+- **Geometric**: Specifically designed for 2D point problems
+- **Optimization**: Strip technique reduces comparisons in merge step
+
+### Practical Insights
+
+**For Small Arrays (n < 50)**
+- Insertion sort cutoff provides measurable speedup
+- QuickSort and MergeSort perform similarly
+- DeterministicSelect overhead may not be worth it
+
+**For Medium Arrays (50 < n < 1000)**
+- QuickSort typically fastest for random data
+- MergeSort more predictable, better for partially sorted data
+- DeterministicSelect useful when guaranteed O(n) is needed
+
+**For Large Arrays (n > 1000)**
+- MergeSort's stability becomes important
+- QuickSort's in-place nature saves memory
+- DeterministicSelect's guaranteed performance prevents timeouts
+
+**Memory Considerations**
+- QuickSort: Most memory efficient (in-place)
+- MergeSort: Requires O(n) extra space
+- DeterministicSelect: Moderate memory usage
+- ClosestPair: O(n) for sorting and strip operations
 
 ## Project Structure
 
